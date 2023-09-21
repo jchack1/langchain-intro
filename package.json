@@ -1,4 +1,14 @@
 {
+  "name": "langchain-intro",
+  "description": "Quickstart link: https://js.langchain.com/docs/get_started/quickstart",
+  "version": "1.0.0",
+  "main": "app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.ts"
+  },
+  "author": "julia h",
+  "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.6.3",
     "typescript": "^5.2.2"
