@@ -1,16 +1,30 @@
-const http = require("http");
-const dotenv = require("dotenv").config();
+import * as dotenv from "dotenv";
+import {OpenAI} from "langchain/llms/openai";
+import express, {Application, Request, Response} from "express";
 
-const hostname = "127.0.0.1";
-const port = 3000;
+const app: Application = express();
 
-const server = http.createServer((req: any, res: any) => {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.end(`key: ${process.env.OPENAI_API_KEY}`);
-  // res.end("Hello World");
+//express setup and routes
+dotenv.config();
+
+//needed this line to properly parse json objects in req
+app.use(express.json());
+
+app.get("/", async (req: Request, res: Response) => {
+  try {
+    const userText: string = req.body.text;
+
+    // langchain code
+
+    const llm = new OpenAI();
+
+    const llmResult = await llm.call(userText);
+
+    res.send(llmResult);
+  } catch (err) {
+    res.send(`there was an error: ${err}`);
+    console.log(err);
+  }
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.listen(3000);
